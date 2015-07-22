@@ -1,0 +1,28 @@
+{
+  "name": "greedy-wrap",
+  "version": "0.0.1",
+  "description": "A recursive greedy algorithm implementation for the word wrap process.",
+  "license": "MIT",
+  "repository": "danilosampaio/greedy-wrap",
+  "author": {
+    "name": "Danilo Sampaio",
+    "email": "danilo.sampaio@gmail.com",
+    "url": "github.org/danilosampaio"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "word-wrap", "word wrap", "greedy", "greedy-wrap"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
