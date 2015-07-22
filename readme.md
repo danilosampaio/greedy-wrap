@@ -16,17 +16,23 @@ $ npm install --save greedy-wrap
 var greedyWrap = require('greedy-wrap');
 
 greedyWrap('  this is a dummy text that overflows the max width. New lines \nmust be considered.', {width: 20});
-//=>   this is a dummy 
-	 text that overflows 
-	 the max width. New 
-	 lines 
-	 must be considered.
+
+//=> Result:
+
+this is a dummy 
+text that overflows 
+the max width. New 
+lines 
+must be considered.
 
 greedyWrap('Supercalifragilisticexpialidocious', {width: 10});
-//=>Supercalif
-	ragilistic
-	expialidoc
-	ious
+
+//=> Result:
+
+Supercalif
+ragilistic
+expialidoc
+ious
 ```
 
 
