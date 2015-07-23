@@ -1,4 +1,7 @@
 'use strict';
+var stringLength = require('string-length');
+var ansiRegex = require('ansi-regex');
+
 module.exports = function (str, opts) {	
 	var recursiveSpaceLeft = 0;
 
@@ -11,7 +14,8 @@ module.exports = function (str, opts) {
 		var width = opts.width || 34;
 		var linebreak = '\n';
 
-		var regex = /\S+|\s?/g;
+		var ansi = ansiRegex().toString().split('/')[1];
+		var regex = new RegExp(ansi + "|\\S+|\\s?", "g");
 		var words = str.match(regex);
 		var spaceLeft = width;
 		var result = '';
@@ -25,17 +29,17 @@ module.exports = function (str, opts) {
 				continue;
 			}
 
-			if (current.length > width) {
+			if (stringLength(current) > width) {
 				var overflow = wrap( current.substr(spaceLeft), { width: width } );
 				result += current.substr(0, spaceLeft) + linebreak + overflow;
 				spaceLeft = recursiveSpaceLeft;
 			} else {
-				if (current.length > spaceLeft) {
+				if (stringLength(current) > spaceLeft) {
 					result = result + linebreak + current;
-					spaceLeft = width - current.length;
+					spaceLeft = width - stringLength(current);
 				} else {
 					result += current;
-					spaceLeft -= current.length;
+					spaceLeft -= stringLength(current);
 				}
 			}
 		};

@@ -19,9 +19,15 @@
     "index.js"
   ],
   "keywords": [
-    "word-wrap", "word wrap", "greedy", "greedy-wrap"
+    "word-wrap",
+    "word wrap",
+    "greedy",
+    "greedy-wrap"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "ansi-regex": "^2.0.0",
+    "string-length": "^1.0.1"
+  },
   "devDependencies": {
     "mocha": "*"
   }
