@@ -1,6 +1,7 @@
 # greedy-wrap [![Build Status](https://travis-ci.org/danilosampaio/greedy-wrap.svg?branch=master)](https://travis-ci.org/danilosampaio/greedy-wrap)
 
 > A recursive greedy algorithm implementation for the word wrap process.
+> It also correctly calculate the width of the words containing ansi escape codes.
 
 
 ## Install
@@ -25,6 +26,7 @@ the max width. New
 lines 
 must be considered.
 
+
 greedyWrap('Supercalifragilisticexpialidocious', {width: 10});
 
 //=> Result:
@@ -33,6 +35,16 @@ Supercalif
 ragilistic
 expialidoc
 ious
+
+
+greedyWrap('\u001b[1mthis\u001b[22m is a text with only \u001b[1mshort\u001b[22m words.', {width: 10})
+
+//=> Result:
+
+**this** is a 
+text with 
+only **short**
+words.
 ```
 
 
