@@ -41,9 +41,9 @@ greedyWrap('\u001b[1mthis\u001b[22m is a text with only \u001b[1mshort\u001b[22m
 
 //=> Result:
 
-**this** is a 
+this is a 
 text with 
-only **short**
+only short
 words.
 ```
 
