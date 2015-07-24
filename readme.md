@@ -37,6 +37,13 @@ expialidoc
 ious
 
 
+greedyWrap('Supercalifragilisticexpialidocious', {width: 10, autoWidth: true});
+
+//=> Result:
+
+Supercalifragilisticexpialidocious
+
+
 greedyWrap('\u001b[1mthis\u001b[22m is a text with only \u001b[1mshort\u001b[22m words.', {width: 10})
 
 //=> Result:
@@ -62,11 +69,18 @@ Type: `string`
 
 ##### width
 
-Type: `integer`  
+Type: `integer`
 Default: `34`
 
 The width of the text.
 
+
+##### autoWidth
+
+Type: `boolean`
+Default: `false`
+
+Override the width to the longest word length.
 
 ## License
 

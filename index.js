@@ -1,6 +1,7 @@
 'use strict';
 var stringLength = require('string-length');
 var ansiRegex = require('ansi-regex');
+var longestLength = require('longest-length');
 
 module.exports = function (str, opts) {	
 	var recursiveSpaceLeft = 0;
@@ -17,8 +18,17 @@ module.exports = function (str, opts) {
 		var ansi = ansiRegex().toString().split('/')[1];
 		var regex = new RegExp(ansi + "|\\S+|\\s?", "g");
 		var words = str.match(regex);
-		var spaceLeft = width;
 		var result = '';
+
+		if (opts.autoWidth) {
+			var longest = longestLength(str);
+
+			if (longest > width){
+				width = longest;
+			}
+		}
+
+		var spaceLeft = width;
 
 		for (var i = 0; i < words.length; i++) {
 			var current = words[i];

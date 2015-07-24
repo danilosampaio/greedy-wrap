@@ -8,6 +8,11 @@ describe('greedy-wrap', function(){
 			'Supercalif\nragilistic\nexpialidoc\nious');
 	});
 
+	it('should override the width to the longest word length', function () {
+		assert.strictEqual(greedyWrap('Supercalifragilisticexpialidocious', {width: 10, autoWidth: true}),
+			'Supercalifragilisticexpialidocious');
+	});
+
 	it('should wrap text with short and long words', function () {
 		assert.strictEqual(greedyWrap('Supercalifragilisticexpialidocious is a long word!', {width: 10}),
 			'Supercalif\nragilistic\nexpialidoc\nious is a \nlong word!');
