@@ -1,6 +1,6 @@
 {
   "name": "greedy-wrap",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A recursive greedy algorithm implementation for the word wrap process.",
   "license": "MIT",
   "repository": "danilosampaio/greedy-wrap",
