@@ -2,6 +2,7 @@
 var stringLength = require('string-length');
 var ansiRegex = require('ansi-regex');
 var longestLength = require('longest-length');
+var trimLeft = require('trim-left');
 
 module.exports = function (str, opts) {	
 	var recursiveSpaceLeft = 0;
@@ -17,8 +18,7 @@ module.exports = function (str, opts) {
 
 		var ansi = ansiRegex().toString().split('/')[1];
 		var regex = new RegExp(ansi + "|\\S+|\\s?", "g");
-		var words = str.match(regex);
-		var result = '';
+		var chunks = str.match(regex);
 
 		if (opts.autoWidth) {
 			var longest = longestLength(str);
@@ -30,29 +30,33 @@ module.exports = function (str, opts) {
 
 		var spaceLeft = width;
 
-		for (var i = 0; i < words.length; i++) {
-			var current = words[i];
-
+		var result = chunks.reduce(function(previous, current){
 			if (current === '\n') {
-				result = result + linebreak;
 				spaceLeft = width;
-				continue;
+				return previous + current;
 			}
 
 			if (stringLength(current) > width) {
-				var overflow = wrap( current.substr(spaceLeft), { width: width } );
-				result += current.substr(0, spaceLeft) + linebreak + overflow;
+				var overflowed = wrap( current.substr(spaceLeft), { width: width } );
+				var partial = previous + current.substr(0, spaceLeft) + linebreak + trimLeft(overflowed);
 				spaceLeft = recursiveSpaceLeft;
+				return partial;
 			} else {
 				if (stringLength(current) > spaceLeft) {
-					result = result + linebreak + current;
+					var trimmed = trimLeft(current);
+
+					if (stringLength(trimmed) === 0) {
+						return previous;
+					}
+
 					spaceLeft = width - stringLength(current);
+					return previous + linebreak + trimLeft(current);
 				} else {
-					result += current;
 					spaceLeft -= stringLength(current);
+					return previous + current;
 				}
 			}
-		};
+		}, '');
 
 		recursiveSpaceLeft = spaceLeft;
 

@@ -27,7 +27,8 @@
   "dependencies": {
     "ansi-regex": "^2.0.0",
     "longest-length": "0.0.1",
-    "string-length": "^1.0.1"
+    "string-length": "^1.0.1",
+    "trim-left": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "*"

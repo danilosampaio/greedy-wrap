@@ -20,7 +20,7 @@ describe('greedy-wrap', function(){
 
 	it('should wrap text with \\n characters into lines with 10 columns', function () {
 		assert.strictEqual(greedyWrap('  this is a dummy text that overflows the max width. New lines \n\nmust be considered.', {width: 10}),
-			'  this is \na dummy \ntext that \noverflows \nthe max \nwidth. New\n lines \n\nmust be co\nnsidered.');
+			'  this is \na dummy \ntext that \noverflows \nthe max \nwidth. New\nlines \n\nmust be co\nnsidered.');
 	});
 
 	it('should wrap text with \\n characters into lines with 20 columns', function () {
@@ -28,10 +28,30 @@ describe('greedy-wrap', function(){
 			'  this is a dummy \ntext that overflows \nthe max width. New \nlines \nmust be considered.');
 	});
 
+	it('should add a new line containing only one space', function () {
+		assert.strictEqual(greedyWrap('Hello, buddy!', {width: 4, autoWidth: true}),
+			'Hello,\nbuddy!');
+	});
+
+	it('should treat correctly white spaces', function () {
+		assert.strictEqual(greedyWrap('aaaaa bbb  cc   ddddd', {width: 5, autoWidth: true}),
+			'aaaaa\nbbb  \ncc   \nddddd');
+	});
+
+	it('should remove white space at the beginning of the line', function () {
+		assert.strictEqual(greedyWrap('aaaaa   bb', {width: 5, autoWidth: true}),
+			'aaaaa\nbb');
+	});
+
+	it('should treat correctly multiple linebreaks', function () {
+		assert.strictEqual(greedyWrap('first line\nthird line\n\nsixth line', {width: 24, autoWidth: true}),
+			'first line\nthird line\n\nsixth line');
+	});
+
 	describe('ansi', function(){
 		it('should treat ansi codes and short words correctly', function () {
 			assert.strictEqual(greedyWrap('\u001b[1mthis\u001b[22m is a text with only \u001b[1mshort\u001b[22m words.', {width: 10}),
-				'\u001b[1mthis\u001b[22m is a \ntext with \nonly \u001b[1mshort\u001b[22m\n words.');
+				'\u001b[1mthis\u001b[22m is a \ntext with \nonly \u001b[1mshort\u001b[22m\nwords.');
 		});
 
 		it('should treat ansi codes and long words correctly', function () {
