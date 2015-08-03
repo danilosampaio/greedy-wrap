@@ -3,11 +3,12 @@ var stringLength = require('string-length');
 var ansiRegex = require('ansi-regex');
 var longestLength = require('longest-length');
 var trimLeft = require('trim-left');
+var substrAnsi = require('substr-ansi');
 
-module.exports = function (str, opts) {	
+module.exports = function (str, opts) {
 	var recursiveSpaceLeft = 0;
 
-	return (function wrap(str, opts){
+	return (function wrap(str, opts) {
 		if (typeof str !== 'string') {
 			throw new TypeError('Expected a string');
 		}
@@ -16,46 +17,46 @@ module.exports = function (str, opts) {
 		var width = opts.width || 34;
 		var linebreak = '\n';
 
-		var ansi = ansiRegex().toString().split('/')[1];
-		var regex = new RegExp(ansi + "|\\S+|\\s?", "g");
+		var ansi = ansiRegex().source;
+		var regex = new RegExp(ansi + '?|\\S+|\\s?', 'g');
 		var chunks = str.match(regex);
 
 		if (opts.autoWidth) {
 			var longest = longestLength(str);
 
-			if (longest > width){
+			if (longest > width) {
 				width = longest;
 			}
 		}
 
 		var spaceLeft = width;
 
-		var result = chunks.reduce(function(previous, current){
+		var result = chunks.reduce(function (previous, current) {
 			if (current === '\n') {
 				spaceLeft = width;
 				return previous + current;
 			}
 
 			if (stringLength(current) > width) {
-				var overflowed = wrap( current.substr(spaceLeft), { width: width } );
-				var partial = previous + current.substr(0, spaceLeft) + linebreak + trimLeft(overflowed);
+				var overflowed = wrap(substrAnsi(current, spaceLeft), {width: width});
+				var partial = previous + substrAnsi(current, 0, spaceLeft) + linebreak + trimLeft(overflowed);
 				spaceLeft = recursiveSpaceLeft;
 				return partial;
-			} else {
-				if (stringLength(current) > spaceLeft) {
-					var trimmed = trimLeft(current);
-
-					if (stringLength(trimmed) === 0) {
-						return previous;
-					}
-
-					spaceLeft = width - stringLength(current);
-					return previous + linebreak + trimLeft(current);
-				} else {
-					spaceLeft -= stringLength(current);
-					return previous + current;
-				}
 			}
+
+			if (stringLength(current) > spaceLeft) {
+				var trimmed = trimLeft(current);
+
+				if (stringLength(trimmed) === 0) {
+					return previous;
+				}
+
+				spaceLeft = width - stringLength(current);
+				return previous + linebreak + trimLeft(current);
+			}
+
+			spaceLeft -= stringLength(current);
+			return previous + current;
 		}, '');
 
 		recursiveSpaceLeft = spaceLeft;

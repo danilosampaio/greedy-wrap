@@ -2,7 +2,7 @@
 var assert = require('assert');
 var greedyWrap = require('./');
 
-describe('greedy-wrap', function(){
+describe('greedy-wrap', function () {
 	it('should wrap text with words that overflows the max width', function () {
 		assert.strictEqual(greedyWrap('Supercalifragilisticexpialidocious', {width: 10}),
 			'Supercalif\nragilistic\nexpialidoc\nious');
@@ -48,7 +48,7 @@ describe('greedy-wrap', function(){
 			'first line\nthird line\n\nsixth line');
 	});
 
-	describe('ansi', function(){
+	describe('ansi', function () {
 		it('should treat ansi codes and short words correctly', function () {
 			assert.strictEqual(greedyWrap('\u001b[1mthis\u001b[22m is a text with only \u001b[1mshort\u001b[22m words.', {width: 10}),
 				'\u001b[1mthis\u001b[22m is a \ntext with \nonly \u001b[1mshort\u001b[22m\nwords.');

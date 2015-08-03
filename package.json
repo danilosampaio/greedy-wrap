@@ -28,9 +28,11 @@
     "ansi-regex": "^2.0.0",
     "longest-length": "0.0.1",
     "string-length": "^1.0.1",
+    "substr-ansi": "0.0.3",
     "trim-left": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "xo": "^0.4.1"
   }
 }
