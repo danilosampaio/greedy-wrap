@@ -1,7 +1,7 @@
 # greedy-wrap [![Build Status](https://travis-ci.org/danilosampaio/greedy-wrap.svg?branch=master)](https://travis-ci.org/danilosampaio/greedy-wrap)
 
 > A recursive greedy algorithm implementation for the word wrap process.
-> It also correctly calculate the width of the words containing ansi escape codes.
+> It also correctly calculates the width of the words containing ANSI escape codes and astral symbols.
 
 
 ## Install
@@ -52,6 +52,13 @@ this is a
 text with 
 only short
 words.
+
+
+greedyWrap('Ayo Silver! 🦄🦄🦄', {width: 15})
+
+//=> Result:
+
+Ayo Silver! 🦄🦄🦄
 ```
 
 

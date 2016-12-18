@@ -26,13 +26,13 @@
   ],
   "dependencies": {
     "ansi-regex": "^2.0.0",
-    "longest-length": "0.0.1",
+    "longest-length": "0.1.1",
     "string-length": "^1.0.1",
     "substr-ansi": "0.0.3",
     "trim-left": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "^0.14.0",
-    "xo": "^0.14.0"
+    "ava": "^0.17.0",
+    "xo": "^0.17.0"
   }
 }

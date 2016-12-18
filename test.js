@@ -64,3 +64,8 @@ test('should treat ansi codes, short and long words correctly', t => {
 	t.is(greedyWrap('\u001b[1mSupercalifragilisticexpialidocious\u001b[22m is a \u001b[1mlong\u001b[22m word!', {width: 10}),
 		'\u001b[1mSupercalif\nragilistic\nexpialidoc\nious\u001b[22m is a \u001b[1m\nlong\u001b[22m word!');
 });
+
+test('shoud treat astral codes correctly', t => {
+	t.is(greedyWrap('Ayo Silver! 🦄🦄🦄', {width: 15}),
+		'Ayo Silver! 🦄🦄🦄');
+});
